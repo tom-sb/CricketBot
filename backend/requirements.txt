@@ -8,7 +8,7 @@ cffi==1.15.0
 channels==3.0.4
 channels-redis==3.3.0
 constantly==15.1.0
-cryptography==3.4.8
+cryptography==36.0.1
 daphne==3.0.2
 Django==3.2.6
 django-cors-headers==3.10.1
@@ -29,6 +29,9 @@ pytz==2021.3
 service-identity==21.1.0
 six==1.16.0
 sqlparse==0.4.2
+torch==1.10.1+cpu
+torchaudio==0.10.1+cpu
+torchvision==0.11.2+cpu
 Twisted==21.7.0
 txaio==21.2.1
 typing_extensions==4.0.1
