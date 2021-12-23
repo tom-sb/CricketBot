@@ -1,0 +1,44 @@
+upstream app_server{
+		server unix:/home/robotica/run/gunicorn.sock fail_timeout=0;
+}
+
+server{
+		listen 80;
+
+		server_name ippublic;
+		
+		keepalive_timeout 5;
+		client_max_body_size 60M;
+		access_log /home/robotica/logs/nginx-access.log;
+
+		error_log /home/robotica/logs/nginx-error.log;
+
+		location /media/{
+				alias /home/robotica/WeedYardDoc/backend/media/;
+		}
+		location /static/{
+				alias /home/robotica/WeedYardDoc/backend/staticfiles/;
+		}
+		location /ws/ {
+				proxy_http_version 1.1;
+				proxy_set_header Upgrade $http_upgrade;
+				proxy_set_header Connection "upgrade";
+				proxy_set_header Host $host;
+				proxy_connect_timeout 15s;
+				proxy_redirect off;
+				proxy_pass http://127.0.0.1:80;
+				proxy_send_timeout 3600;
+				proxy_read_timeout 3600;
+				proxy_buffers 512 256M;
+				proxy_buffer_size 256M;
+		}
+		location /{
+				try_files @proxy_to_app;
+		}
+		location @proxy_to_app{
+				proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+				proxy_set_header Host $http_host;
+				proxy_redirect off;
+				proxy_pass http://app_server;
+		}
+}
