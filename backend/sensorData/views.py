@@ -12,6 +12,15 @@ class DataMqttAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = DataMqtt.objects.all()
     lookup_field = 'id'
 
+class DataMqttGetAPIView(generics.ListAPIView):
+    serializer_class = DataMQTTSerializer
+    queryset = DataMqtt.objects.all()
+
+    def get_queryset(self):
+        topic = self.kwargs['topic']
+        return self.queryset.filter(topic=topic)
+
+
 class CreateDataImageAPIView(generics.ListCreateAPIView):
     serializer_class = DataImageSerializer
     queryset = DataImage.objects.all()
@@ -27,4 +36,3 @@ class DataImageAPIView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = DataImageSerializer
     queryset = DataImage.objects.all()
     lookup_field = 'id'
-
