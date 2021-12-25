@@ -2,9 +2,17 @@ import uuid
 from channels.consumer import AsyncConsumer
 from channels.db import database_sync_to_async
 from modules.inference import predict_class
+from sensorData.models import DataImage
 #from .websocket.utils import check_if_websocket_is_active
 #from .websocket.messaging import send_event_via_websocket_group_consumer
 pred = predict_class(home_path='./media')
+
+@database_sync_to_async
+def get_pred_data_image(pk,url):
+    data = DataImage.objects.get(pk=pk)
+    data.disease_name = pred.predict(url)
+    data.save()
+
 class EventSenderConsumer(AsyncConsumer):
 
     async def send_event(self, message):
@@ -22,5 +30,5 @@ class EventSenderConsumer(AsyncConsumer):
         if data['type'] == 'data-image':
             v_url = data['image'].split('/')
             url = v_url[1] + '/' + v_url[2]
-            print(pred.predict(url))
+            await get_pred_data_image(data['id'],url)
 

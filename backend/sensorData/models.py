@@ -12,3 +12,5 @@ class DataMqtt(models.Model):
 
 class DataImage(models.Model):
     image = models.ImageField()
+    accuracy = models.DecimalField(max_digits=3, decimal_places=2,default=0)
+    disease_name = models.CharField(max_length=20,null=True,blank=True)

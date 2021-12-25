@@ -9,4 +9,4 @@ class DataMQTTSerializer(serializers.ModelSerializer):
 class DataImageSerializer(serializers.ModelSerializer):
     class Meta:
         model = DataImage
-        fields = '__all__'
+        fields = ('image',)

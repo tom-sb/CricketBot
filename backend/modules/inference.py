@@ -65,6 +65,7 @@ class predict_class():
         img = img.unsqueeze(0)           # NCHW Format
         output = self.net(img)           # Extracting highest index (or class) from output
         idx = F.softmax(output, dim=1).max(1)[1].item()    # Predicting Class
+        print(output)
 
         # Confining class bound for Tomato diseases only (Limitation of our Android app)
         if idx < 28 or idx == 38:
