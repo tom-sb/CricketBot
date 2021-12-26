@@ -3,6 +3,8 @@ from rest_framework.response import Response
 from sensorData.models import DataMqtt, DataImage
 from sensorData.serializers import DataMQTTSerializer, DataImageSerializer
 from realtime.messaging import send_new_image
+from rest_framework.parsers import JSONParser, MultiPartParser
+
 class CreateDataMqttAPIView(generics.ListCreateAPIView):
     serializer_class = DataMQTTSerializer
     queryset = DataMqtt.objects.all()
@@ -24,6 +26,7 @@ class DataMqttGetAPIView(generics.ListAPIView):
 class CreateDataImageAPIView(generics.ListCreateAPIView):
     serializer_class = DataImageSerializer
     queryset = DataImage.objects.all()
+    parser_classes = (MultiPartParser, JSONParser,)
 
     def post(self, request, *args, **kwargs):
         serializer = self.serializer_class(data=request.data,context={'request':request})
