@@ -13,16 +13,16 @@ def on_message(client,user_data, message):
             "payload": message.payload.decode("utf-8").strip("\r\n"),
             "qos": message.qos}
     Topic = ['Temp','Hume','Soil']
-    data = message.payload.decode("utf-8").strip("\r\n").split(' ')
+    data = message.payload.decode("utf-8").strip("\r\n").split('\t')
     
-    if len(data)==1:
-        send_new_topic(data1)
-    else:
+    if len(data)>1:
         for i in range(len(data)):
             topic = { "topic": Topic[i],
                         "payload": data[i],
                         "qos": message.qos}
             send_new_topic(topic)
+    else:
+        send_new_topic(data1)
 
 client = mqtt.Client("Smartphone")#client_id='robotica-subs', clean_session=False)
 
