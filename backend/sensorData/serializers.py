@@ -24,4 +24,8 @@ class DataImageSerializer(serializers.ModelSerializer):
     image = Base64ImageField()
     class Meta:
         model = DataImage
-        fields = ('image',)
+        fields = ('image','accuracy','disease_name',)
+        extra_kwargs = {
+            'accuracy': {'read_only': True},
+            'disease_name' : {'read_only': True}
+        }
