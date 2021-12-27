@@ -9,11 +9,20 @@ def on_connect(client, user_data, flags, rc):
 
 def on_message(client,user_data, message):
     #print(message.topic)
-    data = { "topic": message.topic,
+    data1 = { "topic": message.topic,
             "payload": message.payload.decode("utf-8"),
             "qos": message.qos}
-    #print(type(message.payload))
-    send_new_topic(data)
+    Topic = ['Temp','Hume','Soil']
+    data = message.payload.decode("utf-8").split(' ')
+    
+    if len(data)==1:
+        send_new_topic(data1)
+    else:
+        for i in range(len(data)):
+            topic = { "topic": Topic[i],
+                        "payload": data[i],
+                        "qos": message.qos}
+            send_new_topic(topic)
 
 client = mqtt.Client("Smartphone")#client_id='robotica-subs', clean_session=False)
 
