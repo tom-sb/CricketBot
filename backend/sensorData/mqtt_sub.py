@@ -10,9 +10,9 @@ def on_connect(client, user_data, flags, rc):
 def on_message(client,user_data, message):
     #print(message.topic)
     data = { "topic": message.topic,
-            "payload": message.payload,
+            "payload": message.payload.decode("utf-8"),
             "qos": message.qos}
-    
+    #print(type(message.payload))
     send_new_topic(data)
 
 client = mqtt.Client("Smartphone")#client_id='robotica-subs', clean_session=False)
