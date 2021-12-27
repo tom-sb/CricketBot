@@ -14,12 +14,13 @@ def on_message(client,user_data, message):
             "qos": message.qos}
     Topic = ['Temp','Hume','Soil']
     data = message.payload.decode("utf-8").replace("\r",'').replace("\n",'').split('\t')
-    
+    print(data, message.payload.decode("utf-8"))
     if len(data)>1:
         for i in range(len(data)):
             topic = { "topic": Topic[i],
                         "payload": data[i],
                         "qos": message.qos}
+            print(topic)
             send_new_topic(topic)
     else:
         send_new_topic(data1)
