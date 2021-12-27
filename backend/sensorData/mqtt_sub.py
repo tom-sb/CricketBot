@@ -10,10 +10,10 @@ def on_connect(client, user_data, flags, rc):
 def on_message(client,user_data, message):
     #print(message.topic)
     data1 = { "topic": message.topic,
-            "payload": message.payload.decode("utf-8").strip("\t\n"),
+            "payload": message.payload.decode("utf-8").strip("\r\n"),
             "qos": message.qos}
     Topic = ['Temp','Hume','Soil']
-    data = message.payload.decode("utf-8").strip("\t\n").split(' ')
+    data = message.payload.decode("utf-8").strip("\r\n").split(' ')
     
     if len(data)==1:
         send_new_topic(data1)
