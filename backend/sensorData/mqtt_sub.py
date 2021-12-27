@@ -10,10 +10,10 @@ def on_connect(client, user_data, flags, rc):
 def on_message(client,user_data, message):
     #print(message.topic)
     data1 = { "topic": message.topic,
-            "payload": message.payload.decode("utf-8").strip("\r\n"),
+            "payload": message.payload.decode("utf-8").replace('\r','').replace('\n',''),
             "qos": message.qos}
     Topic = ['Temp','Hume','Soil']
-    data = message.payload.decode("utf-8").strip("\r\n").split('\t')
+    data = message.payload.decode("utf-8").replace("\r",'').replace("\n",'').split('\t')
     
     if len(data)>1:
         for i in range(len(data)):
