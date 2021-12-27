@@ -16,7 +16,7 @@ def on_message(client,user_data, message):
     data = message.payload.decode("utf-8").replace("\r",'').replace("\n",'').split('\t')
     print(data, message.payload.decode("utf-8"))
     if len(data)>1:
-        for i in range(len(data)):
+        for i in range(3):
             topic = { "topic": Topic[i],
                         "payload": data[i],
                         "qos": message.qos}
