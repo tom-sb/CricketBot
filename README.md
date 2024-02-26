@@ -10,5 +10,5 @@ This project has several components:
 - app
 - bot
 
-![Pipeline-10-2 drawio](https://github.com/tom-sb/CricketBot/assets/21387081/d31a2ddd-2829-43ad-a214-92c7f6def66c)
+![Screenshot_20240226_083510](https://github.com/tom-sb/CricketBot/assets/21387081/cd3bb321-6524-4f50-bf9f-c2cf37e1cf77)
 
